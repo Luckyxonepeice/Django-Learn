@@ -6,8 +6,14 @@ rooms=[
     {'id':3, 'name':'FrontEnd Developers'}
 ]
 def home(request):
-    context = {'rooms':rooms}
-    return render(request,'home.html',context)
+    context = {"rooms":rooms}
+    return render(request,'base/home.html',context)
 
-def rooms(request):
-    return render(request,'room.html')
+def room(request,pk):
+    
+    context = None
+    for value in rooms:
+        if value['id']==int(pk):
+            context={'value':value['name']}
+            break
+    return render(request,'base/room.html',context)
