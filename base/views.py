@@ -1,19 +1,16 @@
 from django.shortcuts import render
+from .models import Room
 
-rooms=[
-    {'id':1, 'name':"Let's Learn"},
-    {'id':2, 'name':'Design with Me'},
-    {'id':3, 'name':'FrontEnd Developers'}
-]
+
+
 def home(request):
+    
+    rooms = Room.objects.all() #Query for the Room Model
     context = {"rooms":rooms}
     return render(request,'base/home.html',context)
 
 def room(request,pk):
     
-    context = None
-    for value in rooms:
-        if value['id']==int(pk):
-            context={'value':value['name']}
-            break
+    room = Room.objects.get(id=pk)
+    context = {'room':room}
     return render(request,'base/room.html',context)
